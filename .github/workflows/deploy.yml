@@ -39,7 +39,6 @@ jobs:
           test -n "$GATUS_HOST"
           test -n "$GATUS_USER"
 
-          tailscale status
           tailscale ping "$GATUS_HOST"
 
           tailscale ssh "$GATUS_USER@$GATUS_HOST" bash -se <<'REMOTE'
