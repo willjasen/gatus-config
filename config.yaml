@@ -1,0 +1,21 @@
+endpoints:
+  - name: Proxmox pve4
+    group: Proxmox
+    url: "https://pve4.risk-mermaid.ts.net/"
+    interval: 1m
+    conditions:
+      - "[STATUS] == 200"
+
+  - name: PBS1
+    group: Backup
+    url: "https://pbs1.risk-mermaid.ts.net/"
+    interval: 1m
+    conditions:
+      - "[STATUS] == 200"
+
+  - name: InfluxDB
+    group: Monitoring
+    url: "https://influxdb1.risk-mermaid.ts.net/"
+    interval: 1m
+    conditions:
+      - "[STATUS] == 200"
