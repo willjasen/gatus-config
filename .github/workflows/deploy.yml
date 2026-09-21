@@ -1,0 +1,47 @@
+name: Deploy Gatus configuration
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - config.yaml
+      - .github/workflows/deploy.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-gatus
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Connect to Tailscale
+        uses: tailscale/github-action@v3
+        with:
+          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+          oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
+          tags: tag:github-actions
+
+      - name: Deploy configuration
+        env:
+          GATUS_HOST: ${{ secrets.GATUS_HOST }}
+          GATUS_USER: ${{ secrets.GATUS_USER }}
+        run: |
+          set -euo pipefail
+
+          test -n "$GATUS_HOST"
+          test -n "$GATUS_USER"
+
+          tailscale ssh "$GATUS_USER@$GATUS_HOST" 'bash -se' <<'REMOTE'
+          set -euo pipefail
+
+          git -C /opt/gatus-config pull --ff-only --quiet
+          install -m 0644 /opt/gatus-config/config.yaml /opt/gatus/config/config.yaml
+          systemctl restart gatus
+          REMOTE
