@@ -31,33 +31,14 @@ jobs:
       - name: Deploy configuration
         env:
           GATUS_HOST: ${{ secrets.GATUS_HOST }}
-          GATUS_PORT: ${{ secrets.GATUS_PORT }}
           GATUS_USER: ${{ secrets.GATUS_USER }}
-          GATUS_SSH_PRIVATE_KEY: ${{ secrets.GATUS_SSH_PRIVATE_KEY }}
-          GATUS_KNOWN_HOSTS: ${{ secrets.GATUS_KNOWN_HOSTS }}
         run: |
           set -euo pipefail
 
           test -n "$GATUS_HOST"
           test -n "$GATUS_USER"
-          test -n "$GATUS_SSH_PRIVATE_KEY"
-          test -n "$GATUS_KNOWN_HOSTS"
 
-          install -m 700 -d "$HOME/.ssh"
-          printf '%s\n' "$GATUS_SSH_PRIVATE_KEY" > "$HOME/.ssh/gatus_deploy"
-          printf '%s\n' "$GATUS_KNOWN_HOSTS" > "$HOME/.ssh/known_hosts"
-          chmod 600 "$HOME/.ssh/gatus_deploy" "$HOME/.ssh/known_hosts"
-
-          ssh_args=(
-            -i "$HOME/.ssh/gatus_deploy"
-            -o BatchMode=yes
-            -o StrictHostKeyChecking=yes
-          )
-          if [ -n "${GATUS_PORT:-}" ]; then
-            ssh_args+=(-p "$GATUS_PORT")
-          fi
-
-          ssh "${ssh_args[@]}" "$GATUS_USER@$GATUS_HOST" 'bash -se' <<'REMOTE'
+          tailscale ssh "$GATUS_USER@$GATUS_HOST" 'bash -se' <<'REMOTE'
           set -euo pipefail
 
           git -C /opt/gatus-config pull --ff-only --quiet
