@@ -42,7 +42,7 @@ jobs:
           tailscale status
           tailscale ping "$GATUS_HOST"
 
-          ssh -o BatchMode=yes -o ConnectTimeout=30 "$GATUS_USER@$GATUS_HOST" 'bash -se' <<'REMOTE'
+          tailscale ssh "$GATUS_USER@$GATUS_HOST" bash -se <<'REMOTE'
           set -euo pipefail
 
           git -C /opt/gatus-config pull --ff-only --quiet
