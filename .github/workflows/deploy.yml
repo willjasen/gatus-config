@@ -27,6 +27,7 @@ jobs:
           oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
           oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
           tags: tag:github-actions
+          ping: ${{ secrets.GATUS_HOST }}
 
       - name: Deploy configuration
         env:
@@ -37,6 +38,9 @@ jobs:
 
           test -n "$GATUS_HOST"
           test -n "$GATUS_USER"
+
+          tailscale status
+          tailscale ping "$GATUS_HOST"
 
           ssh -o BatchMode=yes -o ConnectTimeout=30 "$GATUS_USER@$GATUS_HOST" 'bash -se' <<'REMOTE'
           set -euo pipefail
