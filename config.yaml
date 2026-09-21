@@ -1,6 +1,6 @@
 storage:
   type: sqlite
-  path: /data/gatus.db
+  path: /opt/gatus/data/gatus.db
 
 endpoints:
   - name: Proxmox pve-a2
