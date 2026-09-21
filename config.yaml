@@ -87,3 +87,10 @@ endpoints:
     interval: 3m
     conditions:
       - "[STATUS] == 200"
+
+  - name: Basement AP
+    group: Infrastructure 📶
+    url: "icmp://192.168.111.83"
+    interval: 30s
+    conditions:
+      - "[CONNECTED] == true"
