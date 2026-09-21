@@ -100,3 +100,56 @@ jobs:
           REMOTE
 
           echo "Gatus configuration deployed successfully."
+
+  notify-discord:
+    name: Notify Discord of workflow run
+    needs: [validate-gatus-configuration, deploy-gatus-configuration]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send workflow notification
+        env:
+          GATUS_DISCORD_WEBHOOK_URL: ${{ secrets.GATUS_DISCORD_WEBHOOK_URL }}
+          VALIDATION_RESULT: ${{ needs.validate-gatus-configuration.result }}
+          DEPLOY_RESULT: ${{ needs.deploy-gatus-configuration.result }}
+        run: |
+          set -euo pipefail
+
+          test -n "$GATUS_DISCORD_WEBHOOK_URL"
+
+          python - "$GATUS_DISCORD_WEBHOOK_URL" "$VALIDATION_RESULT" "$DEPLOY_RESULT" <<'PY'
+          import json
+          import os
+          import sys
+          import urllib.request
+
+          webhook_url, validation_result, deploy_result = sys.argv[1:4]
+
+          status = "success"
+          if validation_result == "failure" or deploy_result == "failure":
+              status = "failure"
+          elif validation_result == "cancelled" or deploy_result == "cancelled":
+              status = "cancelled"
+
+          message = (
+              f"GitHub Actions: {os.environ['GITHUB_WORKFLOW']}\n"
+              f"Repository: {os.environ['GITHUB_REPOSITORY']}\n"
+              f"Branch: {os.environ['GITHUB_REF_NAME']}\n"
+              f"Status: {status}\n"
+              f"Run: https://github.com/{os.environ['GITHUB_REPOSITORY']}/actions/runs/{os.environ['GITHUB_RUN_ID']}"
+          )
+          if validation_result and validation_result != "skipped":
+              message += f"\nValidation: {validation_result}"
+          if deploy_result and deploy_result != "skipped":
+              message += f"\nDeploy: {deploy_result}"
+
+          payload = json.dumps({"content": message}).encode("utf-8")
+          req = urllib.request.Request(
+              webhook_url,
+              data=payload,
+              headers={"Content-Type": "application/json"},
+              method="POST",
+          )
+          with urllib.request.urlopen(req, timeout=30) as response:
+              response.read()
+          PY

@@ -18,7 +18,7 @@ Create a `production` environment in the repository and add these secrets:
 | --- | --- |
 | `GATUS_HOST` | Hostname or Tailscale hostname of the Gatus server |
 | `GATUS_USER` | Linux user authorized by Tailscale SSH to update `/opt/gatus-config`, write the Gatus config, and restart `gatus` |
-| `GATUS_DISCORD_WEBHOOK_URL` | Discord webhook used by the Gatus `discord` alerting integration |
+| `GATUS_DISCORD_WEBHOOK_URL` | Discord webhook used by the Gatus `discord` alerting integration and GitHub Actions run notifications |
 | `TS_OAUTH_CLIENT_ID` | Tailscale OAuth client ID with permission to create a `tag:github-actions` device |
 | `TS_OAUTH_SECRET` | Tailscale OAuth client secret |
 
