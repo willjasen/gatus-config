@@ -1,4 +1,11 @@
 endpoints:
+  - name: Proxmox pve-a2
+    group: Proxmox
+    url: "https://pve-a2.risk-mermaid.ts.net/"
+    interval: 1m
+    conditions:
+      - "[STATUS] == 200"
+
   - name: Proxmox pve4
     group: Proxmox
     url: "https://pve4.risk-mermaid.ts.net/"
