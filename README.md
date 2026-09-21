@@ -1,6 +1,6 @@
 # gatus-config
 
-this repo tracks the services and endpoints i monitor with gatus.
+this repo tracks the services and endpoints i monitor with [gatus](https://gatus.io/).
 
 the monitored targets include public websites, private tailscale hosted services, media and automation tools, and critical infrastructure checks for my home lab and self-hosted stack.
 
