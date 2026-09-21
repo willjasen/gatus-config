@@ -94,3 +94,10 @@ endpoints:
     interval: 30s
     conditions:
       - "[CONNECTED] == true"
+
+  - name: Server Rack UPS
+    group: Infrastructure 📶
+    url: "icmp://192.168.5.106"
+    interval: 30s
+    conditions:
+      - "[CONNECTED] == true"
