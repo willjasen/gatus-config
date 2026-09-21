@@ -1,10 +1,16 @@
 # gatus-config
 
-This repo tracks the public websites I monitor with Gatus.
+This repo tracks the services and endpoints I monitor with Gatus, not just public websites.
 
-The website list is sourced from my public GitHub profile repository at https://github.com/willjasen/willjasen, which maintains the canonical list of personal sites I want to monitor.
+The monitored targets include public websites, private Tailscale-hosted services, media and automation tools, and critical infrastructure checks for my home lab and self-hosted stack.
 
-The config file contains the current Gatus endpoints for those public sites.
+The website list is sourced from my public GitHub profile repository at https://github.com/willjasen/willjasen, which maintains the canonical list of personal sites I want to monitor, while the full config includes additional internal services and network checks.
+
+The config file contains the current Gatus endpoints for these monitored services.
+
+---
+
+## Copilot Generated
 
 ## Automatic deployment
 
