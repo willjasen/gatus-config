@@ -17,7 +17,35 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  deploy:
+  validate-gatus-configuration:
+    name: Validate Gatus configuration
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out configuration
+        uses: actions/checkout@v4
+
+      - name: Run Gatus configuration validation
+        run: |
+          set -euo pipefail
+
+          mkdir -p "$RUNNER_TEMP/gatus-data"
+          set +e
+          timeout --signal=TERM --kill-after=5s 20s \
+            docker run --rm --network none \
+            -v "$PWD/config.yaml:/config/config.yaml:ro" \
+            -v "$RUNNER_TEMP/gatus-data:/opt/gatus/data" \
+            twinproduction/gatus:stable
+          status=$?
+          set -e
+
+          if [ "$status" -ne 124 ]; then
+            echo "Gatus exited before the validation timeout with status $status."
+            exit "$status"
+          fi
+
+  deploy-gatus-configuration:
+    name: Deploy Gatus configuration
+    needs: validate-gatus-configuration
     runs-on: ubuntu-latest
     environment: production
     steps:
