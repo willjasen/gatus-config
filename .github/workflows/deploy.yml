@@ -29,7 +29,7 @@ jobs:
           tags: tag:github-actions
           ping: ${{ secrets.GATUS_HOST }}
 
-      - name: Deploy configuration
+      - name: Deploy Gatus configuration
         env:
           GATUS_HOST: ${{ secrets.GATUS_HOST }}
           GATUS_USER: ${{ secrets.GATUS_USER }}
