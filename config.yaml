@@ -130,6 +130,14 @@ endpoints:
     conditions:
       - "[STATUS] == 200"
 
+  - name: look Google tag
+    group: Websites
+    url: "https://look.willjasen.com/"
+    interval: 5m
+    conditions:
+      - "[STATUS] == 200"
+      - "[BODY] == pat(*cdn-cgi/zaraz*)"
+
   - name: school
     group: Websites
     url: "https://school.willjasen.com/"
