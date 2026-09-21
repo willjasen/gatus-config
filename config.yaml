@@ -53,7 +53,7 @@ endpoints:
       - "[STATUS] == 200"
 
   - name: Jellyfin
-    group: Media
+    group: Media 📺
     url: "https://brandons-mac-mini.risk-mermaid.ts.net:8096/"
     interval: 3m
     conditions:
