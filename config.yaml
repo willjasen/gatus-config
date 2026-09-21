@@ -108,3 +108,10 @@ endpoints:
     interval: 1m
     conditions:
       - "[CONNECTED] == true"
+
+  - name: Open WebUI
+    group: AI
+    url: "https://openwebui.risk-mermaid.ts.net/"
+    interval: 1m
+    conditions:
+      - "[STATUS] == 200"
