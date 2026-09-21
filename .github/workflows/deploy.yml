@@ -135,7 +135,7 @@ jobs:
               f"Run: https://github.com/{os.environ['GITHUB_REPOSITORY']}/actions/runs/{os.environ['GITHUB_RUN_ID']}"
           )
 
-          print(json.dumps({"content": message}))
+          print(json.dumps({"content": message, "flags": 4}))
           PY
           )
 
