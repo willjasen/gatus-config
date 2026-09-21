@@ -1,12 +1,14 @@
 # gatus-config
 
-This repo tracks the services and endpoints I monitor with Gatus, not just public websites.
+this repo tracks the services and endpoints i monitor with gatus.
 
-The monitored targets include public websites, private Tailscale-hosted services, media and automation tools, and critical infrastructure checks for my home lab and self-hosted stack.
+the monitored targets include public websites, private tailscale hosted services, media and automation tools, and critical infrastructure checks for my home lab and self-hosted stack.
 
-The website list is sourced from my public GitHub profile repository at https://github.com/willjasen/willjasen, which maintains the canonical list of personal sites I want to monitor, while the full config includes additional internal services and network checks.
+the public website list is sourced from my public github profile repository at https://github.com/willjasen/willjasen, which maintains the canonical list of personal sites, while the full config includes additional internal services and network checks.
 
-The config file contains the current Gatus endpoints for these monitored services.
+the config file contains the current gatus endpoints for these monitored services.
+
+as this is repo is updated, a github actions deploys a run that logs into my tailnet, remotes into my gatus instance, and updates its config with the new changes.
 
 ---
 
