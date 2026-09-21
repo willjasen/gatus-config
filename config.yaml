@@ -6,35 +6,35 @@ endpoints:
   - name: Proxmox pve-a2
     group: Proxmox
     url: "https://pve-a2.risk-mermaid.ts.net/"
-    interval: 1m
+    interval: 5m
     conditions:
       - "[STATUS] == 200"
       
   - name: Proxmox pve3
     group: Proxmox
     url: "https://pve3.risk-mermaid.ts.net/"
-    interval: 1m
+    interval: 5m
     conditions:
       - "[STATUS] == 200"
 
   - name: Proxmox pve4
     group: Proxmox
     url: "https://pve4.risk-mermaid.ts.net/"
-    interval: 1m
+    interval: 5m
     conditions:
       - "[STATUS] == 200"
 
   - name: Proxmox pve5
     group: Proxmox
     url: "https://pve5.risk-mermaid.ts.net/"
-    interval: 1m
+    interval: 5m
     conditions:
       - "[STATUS] == 200"
 
   - name: Proxmox pve6
     group: Proxmox
     url: "https://pve6.risk-mermaid.ts.net/"
-    interval: 1m
+    interval: 5m
     conditions:
       - "[STATUS] == 200"
 
