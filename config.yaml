@@ -95,6 +95,13 @@ endpoints:
     conditions:
       - "[CONNECTED] == true"
 
+  - name: UniFi Dream Machine
+    group: Infrastructure 📶
+    url: "icmp://192.168.111.1"
+    interval: 30s
+    conditions:
+      - "[CONNECTED] == true"
+
   - name: Server Rack UPS
     group: Infrastructure 📶
     url: "icmp://192.168.5.106"
