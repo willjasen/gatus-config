@@ -46,7 +46,7 @@ endpoints:
       - "[STATUS] == 200"
 
   - name: InfluxDB
-    group: Monitoring
+    group: Monitoring 👁️
     url: "https://influxdb1.risk-mermaid.ts.net/"
     interval: 1m
     conditions:
