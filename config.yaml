@@ -115,3 +115,11 @@ endpoints:
     interval: 1m
     conditions:
       - "[STATUS] == 200"
+
+  - name: Syncthing, Mac mini
+    group: Services
+    url: "https://brandons-mac-mini.risk-mermaid.ts.net:8384/rest/noauth/health"
+    interval: 60s
+    conditions:
+      - "[STATUS] == 200"
+      - "[BODY].status == OK"
