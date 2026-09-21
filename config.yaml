@@ -51,6 +51,7 @@ endpoints:
     interval: 1m
     conditions:
       - "[STATUS] == 200"
+      - "[BODY].status == pass"
 
   - name: Jellyfin
     group: Media 📺
