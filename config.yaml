@@ -116,6 +116,83 @@ endpoints:
     conditions:
       - "[STATUS] == 200"
 
+  - name: main website
+    group: Websites
+    url: "https://willjasen.com/"
+    interval: 5m
+    conditions:
+      - "[STATUS] == 200"
+
+  - name: school
+    group: Websites
+    url: "https://school.willjasen.com/"
+    interval: 5m
+    conditions:
+      - "[STATUS] == 200"
+
+  - name: family
+    group: Websites
+    url: "https://family.willjasen.com/"
+    interval: 5m
+    conditions:
+      - "[STATUS] == 200"
+
+  - name: my dna
+    group: Websites
+    url: "https://dna.willjasen.com/"
+    interval: 5m
+    conditions:
+      - "[STATUS] == 200"
+
+  - name: old website
+    group: Websites
+    url: "https://old.willjasen.com/"
+    interval: 5m
+    conditions:
+      - "[STATUS] == 200"
+
+  - name: stretchie
+    group: Websites
+    url: "https://stretchie.net/"
+    interval: 5m
+    conditions:
+      - "[STATUS] == 200"
+
+  - name: themaus.haus
+    group: Websites
+    url: "https://themaus.haus/"
+    interval: 5m
+    conditions:
+      - "[STATUS] == 200"
+
+  - name: levitate
+    group: Websites
+    url: "https://levitate.willjasen.com/"
+    interval: 5m
+    conditions:
+      - "[STATUS] == 200"
+
+  - name: nerdhirn
+    group: Websites
+    url: "https://nerdhirn.tech/"
+    interval: 5m
+    conditions:
+      - "[STATUS] == 200"
+
+  - name: tailmox
+    group: Websites
+    url: "https://tailmox.com/"
+    interval: 5m
+    conditions:
+      - "[STATUS] == 200"
+
+  - name: scummie
+    group: Websites
+    url: "https://scummie.netlify.app/"
+    interval: 5m
+    conditions:
+      - "[STATUS] == 200"
+
   - name: Syncthing, Mac mini
     group: Services
     url: "https://brandons-mac-mini.risk-mermaid.ts.net:8384/rest/noauth/health"
