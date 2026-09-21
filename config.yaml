@@ -65,3 +65,10 @@ endpoints:
     interval: 1m
     conditions:
       - "[STATUS] == 200"
+
+  - name: Patchmon
+    group: Monitoring 👁️
+    url: "https://patchmon.risk-mermaid.ts.net/"
+    interval: 5m
+    conditions:
+      - "[STATUS] == 200"
