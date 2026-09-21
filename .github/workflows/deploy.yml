@@ -80,18 +80,23 @@ jobs:
         env:
           GATUS_HOST: ${{ secrets.GATUS_HOST }}
           GATUS_USER: ${{ secrets.GATUS_USER }}
+          GATUS_DISCORD_WEBHOOK_URL: ${{ secrets.GATUS_DISCORD_WEBHOOK_URL }}
         run: |
           set -euo pipefail
 
           test -n "$GATUS_HOST"
           test -n "$GATUS_USER"
+          test -n "$GATUS_DISCORD_WEBHOOK_URL"
 
-          tailscale ssh "$GATUS_USER@$GATUS_HOST" bash -se <<'REMOTE'
+          tailscale ssh "$GATUS_USER@$GATUS_HOST" bash -se <<REMOTE
           set -euo pipefail
 
           git -C /opt/gatus-config pull --ff-only --quiet
           install -m 0644 /opt/gatus-config/config.yaml /opt/gatus/config/config.yaml
-          systemctl restart gatus
+          sudo install -d /etc/systemd/system/gatus.service.d
+          sudo sh -c 'printf "%s\n" "[Service]" "Environment=\"GATUS_DISCORD_WEBHOOK_URL=${GATUS_DISCORD_WEBHOOK_URL}\"" > /etc/systemd/system/gatus.service.d/discord-webhook.conf'
+          sudo systemctl daemon-reload
+          sudo systemctl restart gatus
           REMOTE
 
           echo "Gatus configuration deployed successfully."
