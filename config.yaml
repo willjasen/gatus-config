@@ -72,3 +72,17 @@ endpoints:
     interval: 5m
     conditions:
       - "[STATUS] == 200"
+
+  - name: Radarr
+    group: Media 📺
+    url: "https://radarr.risk-mermaid.ts.net/"
+    interval: 3m
+    conditions:
+      - "[STATUS] == 200"
+
+  - name: Sonarr
+    group: Media 📺
+    url: "https://sonarr.risk-mermaid.ts.net/"
+    interval: 3m
+    conditions:
+      - "[STATUS] == 200"
