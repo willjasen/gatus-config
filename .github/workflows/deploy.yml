@@ -131,16 +131,9 @@ jobs:
               status = "cancelled"
 
           message = (
-              f"GitHub Actions: {os.environ['GITHUB_WORKFLOW']}\n"
-              f"Repository: {os.environ['GITHUB_REPOSITORY']}\n"
-              f"Branch: {os.environ['GITHUB_REF_NAME']}\n"
               f"Status: {status}\n"
               f"Run: https://github.com/{os.environ['GITHUB_REPOSITORY']}/actions/runs/{os.environ['GITHUB_RUN_ID']}"
           )
-          if validation_result and validation_result != "skipped":
-              message += f"\nValidation: {validation_result}"
-          if deploy_result and deploy_result != "skipped":
-              message += f"\nDeploy: {deploy_result}"
 
           print(json.dumps({"content": message}))
           PY
