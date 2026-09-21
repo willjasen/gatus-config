@@ -2,6 +2,13 @@ storage:
   type: sqlite
   path: /opt/gatus/data/gatus.db
 
+alerting:
+  discord:
+    webhook-url: $GATUS_DISCORD_WEBHOOK_URL
+    default-alert:
+      description: "Health check failed for {endpoint}"
+      send-on-resolved: true
+
 endpoints:
   - name: Proxmox pve-a2
     group: Proxmox
