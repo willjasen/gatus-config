@@ -58,3 +58,10 @@ endpoints:
     interval: 3m
     conditions:
       - "[STATUS] == 200"
+
+  - name: Homebridge
+    group: Smart Home 🏠
+    url: "https://hb1.risk-mermaid.ts.net/"
+    interval: 1m
+    conditions:
+      - "[STATUS] == 200"
