@@ -117,13 +117,12 @@ jobs:
 
           test -n "$GATUS_DISCORD_WEBHOOK_URL"
 
-          python - "$GATUS_DISCORD_WEBHOOK_URL" "$VALIDATION_RESULT" "$DEPLOY_RESULT" <<'PY'
+          payload=$(python - "$VALIDATION_RESULT" "$DEPLOY_RESULT" <<'PY'
           import json
           import os
           import sys
-          import urllib.request
 
-          webhook_url, validation_result, deploy_result = sys.argv[1:4]
+          validation_result, deploy_result = sys.argv[1:3]
 
           status = "success"
           if validation_result == "failure" or deploy_result == "failure":
@@ -132,24 +131,16 @@ jobs:
               status = "cancelled"
 
           message = (
-              f"GitHub Actions: {os.environ['GITHUB_WORKFLOW']}\n"
-              f"Repository: {os.environ['GITHUB_REPOSITORY']}\n"
-              f"Branch: {os.environ['GITHUB_REF_NAME']}\n"
               f"Status: {status}\n"
               f"Run: https://github.com/{os.environ['GITHUB_REPOSITORY']}/actions/runs/{os.environ['GITHUB_RUN_ID']}"
           )
-          if validation_result and validation_result != "skipped":
-              message += f"\nValidation: {validation_result}"
-          if deploy_result and deploy_result != "skipped":
-              message += f"\nDeploy: {deploy_result}"
 
-          payload = json.dumps({"content": message}).encode("utf-8")
-          req = urllib.request.Request(
-              webhook_url,
-              data=payload,
-              headers={"Content-Type": "application/json"},
-              method="POST",
-          )
-          with urllib.request.urlopen(req, timeout=30) as response:
-              response.read()
+          print(json.dumps({"content": message}))
           PY
+          )
+
+          curl --fail --silent --show-error \
+            -X POST \
+            -H "Content-Type: application/json" \
+            --data "$payload" \
+            "$GATUS_DISCORD_WEBHOOK_URL"
