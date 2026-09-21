@@ -27,9 +27,8 @@ jobs:
           oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
           oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
           tags: tag:github-actions
-          ping: ${{ secrets.GATUS_HOST }}
 
-      - name: Deploy configuration
+      - name: Deploy Gatus configuration
         env:
           GATUS_HOST: ${{ secrets.GATUS_HOST }}
           GATUS_USER: ${{ secrets.GATUS_USER }}
@@ -39,8 +38,6 @@ jobs:
           test -n "$GATUS_HOST"
           test -n "$GATUS_USER"
 
-          tailscale ping "$GATUS_HOST"
-
           tailscale ssh "$GATUS_USER@$GATUS_HOST" bash -se <<'REMOTE'
           set -euo pipefail
 
@@ -48,3 +45,5 @@ jobs:
           install -m 0644 /opt/gatus-config/config.yaml /opt/gatus/config/config.yaml
           systemctl restart gatus
           REMOTE
+
+          echo "Gatus configuration deployed successfully."
